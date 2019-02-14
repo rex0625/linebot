@@ -22,9 +22,9 @@
 					"text" => "Please select",
 					"actions" => array (
 						array (
-							"type" => "postback",
-							"label" => "Buy",
-							"data" => "action=buy&itemid=123"
+							"type": "uri",
+                                                        "label": "動作 1",
+                                                        "uri": "www.google.com.tw"
 						),
 						array (
 							"type" => "message",
