@@ -24,7 +24,7 @@
 						array (
 							"type": "uri",
                                                         "label": "動作 1",
-                                                        "uri": "www.google.com.tw"
+                                                        "uri": "https://www.google.com.tw"
 						),
 						array (
 							"type" => "message",
