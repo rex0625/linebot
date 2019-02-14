@@ -8,48 +8,57 @@
   	$sender_userid = $json_obj->events[0]->source->userId; //取得訊息發送者的id
   	$sender_txt = $json_obj->events[0]->message->text; //取得訊息內容
   	$sender_replyToken = $json_obj->events[0]->replyToken; //取得訊息的replyToken
-  	$msg_json = '{
-		"type": "template",
-		"altText": "this is a carousel template",
-		"template": {
-		  "type": "carousel",
-		  "actions": [],
-		  "columns": [
-			{
-			  "title": "標題",
-			  "text": "文字",
-			  "actions": [
-				{
-				  "type": "message",
-				  "label": "動作 1",
-				  "text": "動作 1"
-				}
-			  ]
-			},
-			{
-			  "title": "標題",
-			  "text": "文字",
-			  "actions": [
-				{
-				  "type": "uri",
-				  "label": "動作 1",
-				  "uri": "https://tw.yahoo.com/"
-				}
-			  ]
-			}
-		  ]
-		}
-	  }';
-  	$response = array (
+	  
+	$response = array (
 		"replyToken" => $sender_replyToken,
 		"messages" => array (
-			json_decode($msg_json)
+			array (
+				"type" => "text",
+				"text" => "請試用quick replies功能",
+				"quickReply" => array (
+					"items" => array (
+						array (
+							"type" => "action",
+							"imageUrl" => "https://sporzfy.com/chtuser1/apple.png",
+							"action" => array (
+								"type" => "message",
+								"label"=> "Apple",
+								"text" => "這是一個Apple"
+							)
+						),
+						array (
+                            "type" => "action",
+                            "imageUrl" => "https://sporzfy.com/chtuser1/placeholder.png",
+                            "action" => array (
+                                "type" => "location",
+                                "label"=> "請選擇位置"
+                            )
+                        ),
+                        array (
+                            "type" => "action",
+                            "imageUrl" => "https://sporzfy.com/chtuser1/camera.png",
+                            "action" => array (
+                                "type" => "camera",
+                                "label"=> "啟動相機"
+                            )
+                        ),
+                        array (
+                            "type" => "action",
+                            "imageUrl" => "https://sporzfy.com/chtuser1/picture.png",
+                            "action" => array (
+                                "type" => "cameraRoll",
+                                "label"=> "啟動相簿"
+                            )
+						)
+					)
+				)	
+			)
 		)
-  	);
+	);
 			
   	fwrite($myfile, "\xEF\xBB\xBF".json_encode($response)); //在字串前面加上\xEF\xBB\xBF轉成utf8格式
   	$header[] = "Content-Type: application/json";
-  	$header[] = "Authorization: Bearer aMMZMPEtoNH2HGgjnH3YyHMoVYp61TondibRuL2i5M1Fip9qg7mbmru3t9ARRkIkWI4ack9s7OtsyWW9/WhN3ciMEoXp7chGIgLirdmMjfgX6y0N2lwLRZzHpDPBQV1jFLG9OA9lpQeS/q/YqY77LwdB04t89/1O/w1cDnyilFU=";
+  	$header[] = "Authorization: Bearer gd1gyH+Pc5TROu9ku5u/5tDvFnffsU8nXU69zXuhTgE0dIS5nVGmx9Js8PwijeUqgFuwWXzyJ14/N5FUmp/UXsmSJbUsxMGA6AW1gozlf6cbEgSGLiC02BEaRa5wUSqE7df8FOANP1WjPW8Mh/TgtwdB04t89/1O/w1cDnyilFU=";
   	$ch = curl_init("https://api.line.me/v2/bot/message/reply");
   	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
   	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));                                                                  
